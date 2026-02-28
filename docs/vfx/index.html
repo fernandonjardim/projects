@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xira Tech — O Hub de Inovacao de Vila Franca de Xira</title>
+  <meta name="description" content="O ponto de partida para quem quer empreender em Vila Franca de Xira. Comunidade, mentoria, perks e eventos para founders.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #0055B8;
+      --blue-dark: #003D82;
+      --blue-deeper: #002B5C;
+      --yellow: #FFC82E;
+      --white: #FFFFFF;
+      --dark: #0A1628;
+      --text: #FFFFFF;
+      --text-muted: #A0B4CC;
+      --text-dark: #1A1A2E;
+      --accent: #FFC82E;
+      --accent-glow: rgba(255, 200, 46, 0.2);
+      --card-bg: rgba(255,255,255,0.06);
+      --card-border: rgba(255,255,255,0.1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark); color: var(--text);
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(10, 22, 40, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1.4rem;
+      color: var(--text); text-decoration: none;
+    }
+    .nav-brand span { color: var(--yellow); }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--white); color: var(--blue-dark);
+      padding: 0.6rem 1.5rem; border-radius: 100px;
+      font-weight: 700; font-size: 0.85rem;
+      text-decoration: none; transition: all 0.3s ease;
+      border: 2px solid var(--white);
+    }
+    .nav-cta:hover { background: var(--yellow); color: #000; border-color: var(--yellow); transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex; border-radius: 100px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .lang-btn {
+      padding: 0.35rem 0.7rem; cursor: pointer;
+      background: transparent; color: var(--text-muted);
+      border: none; font-family: inherit; font-weight: 700;
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--yellow); color: var(--text-dark);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center; padding: 8rem 2rem 4rem;
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--blue-deeper) 50%, var(--blue-dark) 100%);
+    }
+    .hero::before {
+      content: ''; position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      top: 20%; right: -10%; border-radius: 50%; pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,200,46,0.1);
+      border: 1px solid rgba(255,200,46,0.25);
+      padding: 0.5rem 1.2rem; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--yellow); letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.03em; margin-bottom: 1.5rem; max-width: 800px;
+    }
+    .hero h1 .hl { color: var(--yellow); }
+    .hero p {
+      font-size: 1.15rem; color: var(--text-muted);
+      max-width: 600px; line-height: 1.7; margin-bottom: 2.5rem;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: var(--yellow); color: var(--text-dark);
+      padding: 0.9rem 2rem; border-radius: 100px;
+      font-weight: 700; font-size: 1rem;
+      text-decoration: none; transition: all 0.3s ease;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px var(--accent-glow); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text); padding: 0.9rem 2rem;
+      border-radius: 100px; font-weight: 600;
+      font-size: 1rem; text-decoration: none; transition: all 0.3s ease;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.12); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--blue); padding: 3rem 2rem;
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 3rem;
+    }
+    .stat { text-align: center; min-width: 140px; }
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem; font-weight: 800; color: var(--yellow);
+    }
+    .stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.8); margin-top: 0.3rem; font-weight: 500; }
+
+    /* ── SECTION UTILITIES ── */
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem; font-weight: 800;
+      letter-spacing: -0.02em; margin-bottom: 0.8rem;
+    }
+    .section-subtitle {
+      font-size: 1.05rem; color: var(--text-muted);
+      max-width: 650px; line-height: 1.7; margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-section { padding: 5rem 2rem; background: var(--dark); }
+    .about-inner { max-width: 1200px; margin: 0 auto; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start; margin-top: 3rem;
+    }
+    .about-text h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem; font-weight: 700;
+      margin-bottom: 1rem; color: var(--yellow);
+    }
+    .about-text p {
+      color: var(--text-muted); line-height: 1.8;
+      margin-bottom: 1.5rem; font-size: 0.95rem;
+    }
+    .about-text ul {
+      color: var(--text-muted); line-height: 2;
+      font-size: 0.95rem; padding-left: 1.2rem;
+    }
+    .about-text ul strong { color: var(--yellow); }
+    .feature-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .feature-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 1.5rem; transition: all 0.3s ease;
+    }
+    .feature-card:hover { border-color: rgba(255,200,46,0.3); transform: translateY(-3px); }
+    .feature-icon { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
+    .feature-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .feature-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+    }
+    .cta-inner { max-width: 1200px; margin: 0 auto; }
+    .cta-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .cta-card {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px; padding: 2.5rem 2rem; text-align: center;
+      transition: all 0.3s ease;
+    }
+    .cta-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); border-color: var(--yellow); }
+    .cta-card-icon { font-size: 3rem; margin-bottom: 1.2rem; display: block; }
+    .cta-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem;
+    }
+    .cta-card p { color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .cta-card .btn-primary { font-size: 0.85rem; padding: 0.7rem 1.5rem; }
+
+    /* ── EVENTS ── */
+    .events-section { padding: 5rem 2rem; background: var(--yellow); color: var(--text-dark); }
+    .events-inner { max-width: 1200px; margin: 0 auto; }
+    .events-section .section-title { color: var(--text-dark); }
+    .events-section .section-subtitle { color: rgba(0,0,0,0.6); }
+    .events-category { margin-bottom: 2.5rem; }
+    .events-category-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--blue);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: 1rem; padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(0,85,184,0.2);
+    }
+    .event-card {
+      background: var(--white); border-radius: 12px; padding: 1.5rem;
+      margin-bottom: 1rem;
+      display: grid; grid-template-columns: 60px 1fr auto;
+      gap: 1.2rem; align-items: center;
+      transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .event-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .event-logo {
+      width: 50px; height: 50px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px; overflow: hidden;
+      background: #f5f5f5;
+      font-weight: 800; font-size: 0.6rem; color: var(--text-dark);
+      text-align: center; line-height: 1.2;
+    }
+    .event-logo img { max-width: 44px; max-height: 44px; object-fit: contain; }
+    .event-info h4 { font-size: 0.95rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.2rem; }
+    .event-info .event-date { font-size: 0.8rem; color: var(--blue); font-weight: 600; margin-bottom: 0.3rem; }
+    .event-info p { font-size: 0.82rem; color: rgba(0,0,0,0.55); line-height: 1.5; }
+    .event-action {
+      background: var(--blue); color: var(--white);
+      padding: 0.5rem 1rem; border-radius: 8px;
+      font-size: 0.78rem; font-weight: 700;
+      text-decoration: none; white-space: nowrap; transition: all 0.2s;
+    }
+    .event-action:hover { background: var(--blue-dark); }
+
+    /* ── PERKS ── */
+    .perks-section { padding: 5rem 2rem; background: var(--blue); }
+    .perks-inner { max-width: 1200px; margin: 0 auto; }
+    .perks-hero { text-align: center; margin-bottom: 3rem; }
+    .perks-hero .section-title { color: var(--white); }
+    .perks-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem; font-weight: 800; color: var(--yellow);
+    }
+    .perks-value-label { font-size: 1rem; color: rgba(255,255,255,0.7); }
+    .perks-category { margin-bottom: 2.5rem; }
+    .perks-category-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--yellow);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .perks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .perk-card {
+      background: var(--white); border-radius: 12px; padding: 1.5rem;
+      color: var(--text-dark); transition: all 0.2s ease;
+    }
+    .perk-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+    .perk-header {
+      display: flex; align-items: center; gap: 0.8rem;
+      margin-bottom: 1rem; padding-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .perk-logo {
+      min-width: 50px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.65rem; color: var(--blue);
+      text-align: center; line-height: 1.2;
+    }
+    .perk-logo img { max-width: 48px; max-height: 28px; object-fit: contain; }
+    .perk-value { font-size: 0.8rem; font-weight: 700; color: var(--blue); }
+    .perk-card > p { font-size: 0.82rem; color: rgba(0,0,0,0.6); line-height: 1.5; margin-bottom: 1rem; }
+    .perk-actions { display: flex; justify-content: space-between; align-items: center; }
+    .perk-link { font-size: 0.75rem; color: var(--blue); text-decoration: none; font-weight: 600; }
+    .perk-link:hover { text-decoration: underline; }
+    .perk-apply {
+      background: var(--blue); color: var(--white);
+      padding: 0.4rem 1rem; border-radius: 6px;
+      font-size: 0.75rem; font-weight: 700;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .perk-apply:hover { background: var(--blue-dark); }
+
+    /* ── HOW TO CLAIM ── */
+    .claim-section { padding: 4rem 2rem; background: var(--blue-dark); text-align: center; }
+    .claim-inner { max-width: 700px; margin: 0 auto; }
+    .claim-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem; font-weight: 700; color: var(--yellow); margin-bottom: 1rem;
+    }
+    .claim-section p { color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); padding: 3rem 2rem;
+      text-align: center; border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-inner { max-width: 800px; margin: 0 auto; }
+    .footer-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem;
+    }
+    .footer-brand span { color: var(--yellow); }
+    .footer-desc { color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 1.5rem; }
+    .footer-351 {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--text-muted); font-size: 0.8rem; margin-top: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .cta-cards { grid-template-columns: 1fr; }
+      .perks-grid { grid-template-columns: 1fr 1fr; }
+      .event-card { grid-template-columns: 50px 1fr; }
+      .event-action { grid-column: 2; justify-self: start; margin-top: 0.5rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { gap: 0.8rem; }
+      .nav-links a:not(.nav-cta):not(.lang-toggle *) { display: none; }
+      .hero h1 { font-size: 2.2rem; }
+      .feature-cards { grid-template-columns: 1fr; }
+      .perks-grid { grid-template-columns: 1fr; }
+      .stats-bar { gap: 1.5rem; }
+      .stat-number { font-size: 2rem; }
+      .perks-value { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#" class="nav-brand">Xira<span>Tech</span></a>
+  <div class="nav-links">
+    <a href="#about" data-pt="Sobre" data-en="About">Sobre</a>
+    <a href="#connect" data-pt="Conectar" data-en="Connect">Conectar</a>
+    <a href="#events" data-pt="Eventos" data-en="Events">Eventos</a>
+    <a href="#perks">Perks</a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('pt')">PT</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="#connect" class="nav-cta" data-pt="Junta-te" data-en="Join Us">Junta-te</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-badge" data-pt="Hub de Inovacao &bull; Vila Franca de Xira" data-en="Innovation Hub &bull; Vila Franca de Xira">Hub de Inovacao &bull; Vila Franca de Xira</div>
+  <h1 data-pt="O ponto de partida para <span class='hl'>empreender</span> em Vila Franca de Xira" data-en="The starting point for <span class='hl'>entrepreneurs</span> in Vila Franca de Xira">O ponto de partida para <span class="hl">empreender</span> em Vila Franca de Xira</h1>
+  <p data-pt="A 30 minutos de Lisboa, com industria, talento e uma comunidade que te apoia. O Xira Tech e o teu hub: mentoria, eventos semanais, perks e acesso a mais de 1 milhao de euros em servicos." data-en="30 minutes from Lisbon, with industry, talent and a community that supports you. Xira Tech is your hub: mentorship, weekly events, perks and access to over 1 million euros in services.">A 30 minutos de Lisboa, com industria, talento e uma comunidade que te apoia. O Xira Tech e o teu hub: mentoria, eventos semanais, perks e acesso a mais de 1 milhao de euros em servicos.</p>
+  <div class="hero-ctas">
+    <a href="#connect" class="btn-primary" data-pt="Junta-te a Comunidade" data-en="Join the Community">Junta-te a Comunidade</a>
+    <a href="#about" class="btn-secondary" data-pt="Saber Mais" data-en="Learn More">Saber Mais</a>
+  </div>
+</section>
+
+<!-- ── STATS BAR ── -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-number">80+</div>
+    <div class="stat-label" data-pt="Mentores & Especialistas" data-en="Mentors & Experts">Mentores & Especialistas</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">35+</div>
+    <div class="stat-label" data-pt="Parceiros Corporativos" data-en="Corporate Partners">Parceiros Corporativos</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">1M+</div>
+    <div class="stat-label" data-pt="em Perks & Servicos" data-en="in Perks & Services">em Perks & Servicos</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">30+</div>
+    <div class="stat-label" data-pt="Eventos por Mes" data-en="Events per Month">Eventos por Mes</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">351</div>
+    <div class="stat-label" data-pt="Comunidade Nacional" data-en="National Community">Comunidade Nacional</div>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="section-title" data-pt="Porque Vila Franca de Xira?" data-en="Why Vila Franca de Xira?">Porque Vila Franca de Xira?</div>
+    <div class="section-subtitle" data-pt="Vila Franca de Xira tem os ingredientes certos para ser o proximo polo de inovacao do pais. O que faltava era o hub que conectasse tudo." data-en="Vila Franca de Xira has the right ingredients to be the next innovation hub in Portugal. What was missing was a hub to connect it all.">Vila Franca de Xira tem os ingredientes certos para ser o proximo polo de inovacao do pais. O que faltava era o hub que conectasse tudo.</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <h3 data-pt="A 30 minutos de Lisboa. Mas com identidade propria." data-en="30 minutes from Lisbon. But with its own identity.">A 30 minutos de Lisboa. Mas com identidade propria.</h3>
+        <p data-pt="VFX tem um legado industrial forte, universidades proximas, excelentes acessos e um municipio pronto para investir em inovacao. O que faltava era uma comunidade conectada, visivel e auto-reforçante." data-en="VFX has a strong industrial legacy, nearby universities, excellent access routes and a municipality ready to invest in innovation. What was missing was a connected, visible, self-reinforcing community.">VFX tem um legado industrial forte, universidades proximas, excelentes acessos e um municipio pronto para investir em inovacao. O que faltava era uma comunidade conectada, visivel e auto-reforçante.</p>
+        <p data-pt="O <strong>Xira Tech</strong> e a marca, o hub e a estrategia. E o ponto unico de contacto para quem quer iniciar ou fazer crescer uma empresa tecnologica no concelho." data-en="<strong>Xira Tech</strong> is the brand, the hub and the strategy. It is the single point of contact for anyone who wants to start or grow a tech company in the municipality.">O <strong>Xira Tech</strong> e a marca, o hub e a estrategia. E o ponto unico de contacto para quem quer iniciar ou fazer crescer uma empresa tecnologica no concelho.</p>
+        <h3 data-pt="Como o Xira Tech te pode ajudar" data-en="How Xira Tech can help you">Como o Xira Tech te pode ajudar</h3>
+        <p data-pt="Nao es so mais um numero. No Xira Tech, cada founder tem acesso a um gestor de projeto dedicado que te conecta ao mentor certo, ao programa certo, e a oportunidade certa." data-en="You are not just another number. At Xira Tech, every founder has access to a dedicated project manager who connects you to the right mentor, the right programme, and the right opportunity.">Nao es so mais um numero. No Xira Tech, cada founder tem acesso a um gestor de projeto dedicado que te conecta ao mentor certo, ao programa certo, e a oportunidade certa.</p>
+        <ul>
+          <li data-pt="Rede de <strong>80+ mentores e especialistas</strong> em produto, vendas, crescimento, AI, juridico e fundraising" data-en="Network of <strong>80+ mentors and experts</strong> in product, sales, growth, AI, legal and fundraising">Rede de <strong>80+ mentores e especialistas</strong> em produto, vendas, crescimento, AI, juridico e fundraising</li>
+          <li data-pt="Acesso a <strong>35+ parceiros corporativos</strong> incluindo grandes empresas industriais, tecnologicas e de servicos" data-en="Access to <strong>35+ corporate partners</strong> including major industrial, tech and services companies">Acesso a <strong>35+ parceiros corporativos</strong> incluindo grandes empresas industriais, tecnologicas e de servicos</li>
+          <li data-pt="Ligacao direta aos programas da <strong>351 Startups</strong>, Techstars e Founder Institute" data-en="Direct connection to <strong>351 Startups</strong>, Techstars and Founder Institute programmes">Ligacao direta aos programas da <strong>351 Startups</strong>, Techstars e Founder Institute</li>
+          <li data-pt="Espaco fisico para trabalhar, reunir e fazer crescer a tua empresa" data-en="Physical space to work, meet and grow your company">Espaco fisico para trabalhar, reunir e fazer crescer a tua empresa</li>
+          <li data-pt="Mais de <strong>1 milhao de euros em perks</strong> de ferramentas tech, cloud, marketing e muito mais" data-en="Over <strong>1 million euros in perks</strong> from tech tools, cloud, marketing and more">Mais de <strong>1 milhao de euros em perks</strong> de ferramentas tech, cloud, marketing e muito mais</li>
+        </ul>
+      </div>
+      <div class="feature-cards">
+        <div class="feature-card">
+          <span class="feature-icon">&#127969;</span>
+          <h4 data-pt="Hub Fisico" data-en="Physical Hub">Hub Fisico</h4>
+          <p data-pt="Espaco de coworking, salas de reuniao e um local para a comunidade se encontrar todos os dias." data-en="Coworking space, meeting rooms and a place for the community to meet every day.">Espaco de coworking, salas de reuniao e um local para a comunidade se encontrar todos os dias.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">&#129309;</span>
+          <h4 data-pt="Rede de Mentores" data-en="Mentor Network">Rede de Mentores</h4>
+          <p data-pt="80+ mentores de areas como produto, fundraising, AI, vendas e juridico. Office hours quinzenais." data-en="80+ mentors in product, fundraising, AI, sales and legal. Bi-weekly office hours.">80+ mentores de areas como produto, fundraising, AI, vendas e juridico. Office hours quinzenais.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">&#128640;</span>
+          <h4 data-pt="Programa de Incubacao" data-en="Incubation Programme">Programa de Incubacao</h4>
+          <p data-pt="6 meses de apoio estruturado: espaco, mentoria 1:1, perks tech e ligacao ao Founder Institute." data-en="6 months of structured support: space, 1:1 mentoring, tech perks and Founder Institute connection.">6 meses de apoio estruturado: espaco, mentoria 1:1, perks tech e ligacao ao Founder Institute.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">&#127758;</span>
+          <h4 data-pt="Rede Nacional & Global" data-en="National & Global Network">Rede Nacional & Global</h4>
+          <p data-pt="Acesso a comunidade da 351, Portugal Tech Week, Techstars Startup Weekends e parceiros internacionais." data-en="Access to the 351 community, Portugal Tech Week, Techstars Startup Weekends and international partners.">Acesso a comunidade da 351, Portugal Tech Week, Techstars Startup Weekends e parceiros internacionais.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">&#128176;</span>
+          <h4 data-pt="1M+ em Perks" data-en="1M+ in Perks">1M+ em Perks</h4>
+          <p data-pt="Creditos AWS, Google Cloud, Azure, HubSpot, Notion, Stripe e mais 30 ferramentas essenciais." data-en="AWS, Google Cloud, Azure, HubSpot, Notion, Stripe credits and 30+ essential tools.">Creditos AWS, Google Cloud, Azure, HubSpot, Notion, Stripe e mais 30 ferramentas essenciais.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">&#128218;</span>
+          <h4 data-pt="Masterclasses" data-en="Masterclasses">Masterclasses</h4>
+          <p data-pt="Eventos semanais com as maiores empresas tech do mundo: workshops praticos e conteudo exclusivo." data-en="Weekly events with the world's biggest tech companies: hands-on workshops and exclusive content.">Eventos semanais com as maiores empresas tech do mundo: workshops praticos e conteudo exclusivo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA / CONNECT ── -->
+<section class="cta-section" id="connect">
+  <div class="cta-inner">
+    <div class="section-title" style="color:var(--white)" data-pt="Conecta-te ao Ecossistema" data-en="Connect to the Ecosystem">Conecta-te ao Ecossistema</div>
+    <div class="section-subtitle" style="color:rgba(255,255,255,0.7)" data-pt="Tres formas de comecar. Sem burocracia, sem porta errada. Um unico ponto de contacto." data-en="Three ways to start. No bureaucracy, no wrong door. One single point of contact.">Tres formas de comecar. Sem burocracia, sem porta errada. Um unico ponto de contacto.</div>
+    <div class="cta-cards">
+      <div class="cta-card">
+        <span class="cta-card-icon">&#128172;</span>
+        <h3 data-pt="Junta-te ao Slack" data-en="Join the Slack">Junta-te ao Slack</h3>
+        <p data-pt="Entra na comunidade Xira Tech: conecta-te com outros founders, mentores, investidores e empresas. Faz perguntas, partilha oportunidades e encontra o teu co-founder." data-en="Join the Xira Tech community: connect with other founders, mentors, investors and companies. Ask questions, share opportunities and find your co-founder.">Entra na comunidade Xira Tech: conecta-te com outros founders, mentores, investidores e empresas. Faz perguntas, partilha oportunidades e encontra o teu co-founder.</p>
+        <a href="#" class="btn-primary" data-pt="Entrar no Slack" data-en="Join Slack">Entrar no Slack</a>
+      </div>
+      <div class="cta-card">
+        <span class="cta-card-icon">&#128187;</span>
+        <h3 data-pt="Vem fazer Coworking" data-en="Come Cowork">Vem fazer Coworking</h3>
+        <p data-pt="Trabalha a partir do hub Xira Tech. Secretarias, Wi-Fi, cafe e comunidade. Todos os dias. Nao precisas de ser uma startup incubada — basta aparecer." data-en="Work from the Xira Tech hub. Desks, Wi-Fi, coffee and community. Every day. You don't need to be an incubated startup — just show up.">Trabalha a partir do hub Xira Tech. Secretarias, Wi-Fi, cafe e comunidade. Todos os dias. Nao precisas de ser uma startup incubada — basta aparecer.</p>
+        <a href="#" class="btn-primary" data-pt="Ver Espaco" data-en="See the Space">Ver Espaco</a>
+      </div>
+      <div class="cta-card">
+        <span class="cta-card-icon">&#128197;</span>
+        <h3 data-pt="Fala com o Program Manager" data-en="Talk to the Program Manager">Fala com o Program Manager</h3>
+        <p data-pt="Tens uma ideia? Precisas de um mentor? Queres candidatar-te a incubacao? Marca uma reuniao com o Fernando — o gestor do ecossistema Xira Tech." data-en="Have an idea? Need a mentor? Want to apply for incubation? Book a meeting with Fernando — the Xira Tech ecosystem manager.">Tens uma ideia? Precisas de um mentor? Queres candidatar-te a incubacao? Marca uma reuniao com o Fernando — o gestor do ecossistema Xira Tech.</p>
+        <a href="#" class="btn-primary" data-pt="Marcar Reuniao" data-en="Book a Meeting">Marcar Reuniao</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EVENTS ── -->
+<section class="events-section" id="events">
+  <div class="events-inner">
+    <div class="section-title" data-pt="Eventos & Masterclasses" data-en="Events & Masterclasses">Eventos & Masterclasses</div>
+    <div class="section-subtitle" data-pt="Aprende com as melhores empresas do mundo e conecta-te com a comunidade local. Mais de 30 eventos por mes no Xira Tech Hub e online." data-en="Learn from the world's best companies and connect with the local community. Over 30 events per month at Xira Tech Hub and online.">Aprende com as melhores empresas do mundo e conecta-te com a comunidade local. Mais de 30 eventos por mes no Xira Tech Hub e online.</div>
+
+    <div class="events-category">
+      <div class="events-category-title" data-pt="&#9729;&#65039; Cloud & Infraestrutura" data-en="&#9729;&#65039; Cloud & Infrastructure">&#9729;&#65039; Cloud & Infraestrutura</div>
+      <div class="event-card">
+        <div class="event-logo">AWS</div>
+        <div class="event-info">
+          <div class="event-date">15/04 as 14:00</div>
+          <h4>Building AI-Enabled Products with AWS</h4>
+          <p data-pt="Descobre como a Amazon usa AI para melhorar logistica, pricing e criar produtos impossiveis sem inteligencia artificial." data-en="Discover how Amazon uses AI to improve logistics, pricing and create products impossible without artificial intelligence.">Descobre como a Amazon usa AI para melhorar logistica, pricing e criar produtos impossiveis sem inteligencia artificial.</p>
+        </div>
+        <a href="#" class="event-action">+ INFO</a>
+      </div>
+      <div class="event-card">
+        <div class="event-logo">Google Cloud</div>
+        <div class="event-info">
+          <div class="event-date">22/04 as 10:00</div>
+          <h4>Scaling Web Apps with Google Cloud</h4>
+          <p data-pt="Google Cloud para startups: como escalar a tua aplicacao web com creditos gratuitos e suporte tecnico." data-en="Google Cloud for startups: how to scale your web app with free credits and technical support.">Google Cloud para startups: como escalar a tua aplicacao web com creditos gratuitos e suporte tecnico.</p>
+        </div>
+        <a href="#" class="event-action">+ INFO</a>
+      </div>
+      <div class="event-card">
+        <div class="event-logo">Azure</div>
+        <div class="event-info">
+          <div class="event-date">29/04 as 15:00</div>
+          <h4>Azure for Startups: From MVP to Scale</h4>
+          <p data-pt="Aprende a usar os creditos Azure para construir e escalar o teu produto, com suporte tecnico dedicado e Office 365 gratuito." data-en="Learn how to use Azure credits to build and scale your product, with dedicated technical support and free Office 365.">Aprende a usar os creditos Azure para construir e escalar o teu produto, com suporte tecnico dedicado e Office 365 gratuito.</p>
+        </div>
+        <a href="#" class="event-action">+ INFO</a>
+      </div>
+    </div>
+
+    <div class="events-category">
+      <div class="events-category-title" data-pt="&#128200; Marketing & CRM" data-en="&#128200; Marketing & CRM">&#128200; Marketing & CRM</div>
+      <div class="event-card">
+        <div class="event-logo">HubSpot</div>
+        <div class="event-info">
+          <div class="event-date">08/04 as 11:00</div>
+          <h4 data-pt="Growth Playbook para Startups Early-Stage" data-en="Growth Playbook for Early-Stage Startups">Growth Playbook para Startups Early-Stage</h4>
+          <p data-pt="Cria o teu playbook de crescimento com inbound marketing, vendas e servico ao cliente usando HubSpot gratuito." data-en="Create your growth playbook with inbound marketing, sales and customer service using free HubSpot.">Cria o teu playbook de crescimento com inbound marketing, vendas e servico ao cliente usando HubSpot gratuito.</p>
+        </div>
+        <a href="#" class="event-action">+ INFO</a>
+      </div>
+      <div class="event-card">
+        <div class="event-logo">Segment</div>
+        <div class="event-info">
+          <div class="event-date">17/04 as 14:00</div>
+          <h4>Analytics for Startups: Build Your First Funnel</h4>
+          <p data-pt="Aprende a construir o teu primeiro funil de dados, escolher as metricas certas e montar o teu marketing stack." data-en="Learn how to build your first data funnel, choose the right metrics and set up your marketing stack.">Aprende a construir o teu primeiro funil de dados, escolher as metricas certas e montar o teu marketing stack.</p>
+        </div>
+        <a href="#" class="event-action">+ INFO</a>
+      </div>
+      <div class="event-card">
+        <div class="event-logo">Notion</div>
+        <div class="event-info">
+          <div class="event-date">29/04 as 13:00</div>
+          <h4>Block x Block: Europe</h4>
+          <p data-pt="Ve o que a Notion tem em loja este ano, como empresas estao a usar Notion para produtividade e aprende com experts mundiais." data-en="See what Notion has in store this year, how companies use Notion for productivity and learn from world experts.">Ve o que a Notion tem em loja este ano, como empresas estao a usar Notion para produtividade e aprende com experts mundiais.</p>
+        </div>
+        <a href="#" class="event-action">+ INFO</a>
+      </div>
+    </div>
+
+    <div class="events-category">
+      <div class="events-category-title" data-pt="&#128178; Pitching & Funding" data-en="&#128178; Pitching & Funding">&#128178; Pitching & Funding</div>
+      <div class="event-card">
+        <div class="event-logo">Portugal Ventures</div>
+        <div class="event-info">
+          <div class="event-date">25/04 as 10:00</div>
+          <h4>Portugal Ventures Open Day</h4>
+          <p data-pt="Apresenta o teu projeto a Portugal Ventures e recebe sugestoes e recomendacoes da equipa de investimento." data-en="Present your project to Portugal Ventures and get suggestions and recommendations from the investment team.">Apresenta o teu projeto a Portugal Ventures e recebe sugestoes e recomendacoes da equipa de investimento.</p>
+        </div>
+        <a href="#" class="event-action">+ INFO</a>
+      </div>
+      <div class="event-card">
+        <div class="event-logo">Founder Institute</div>
+        <div class="event-info">
+          <div class="event-date">10/05 as 18:00</div>
+          <h4 data-pt="Founder Institute Info Session — Bolsas VFX" data-en="Founder Institute Info Session — VFX Scholarships">Founder Institute Info Session — Bolsas VFX</h4>
+          <p data-pt="Sessao informativa sobre a maior pre-aceleradora do mundo. Bolsas disponiveis para founders de Vila Franca de Xira." data-en="Info session about the world's largest pre-seed accelerator. Scholarships available for Vila Franca de Xira founders.">Sessao informativa sobre a maior pre-aceleradora do mundo. Bolsas disponiveis para founders de Vila Franca de Xira.</p>
+        </div>
+        <a href="#" class="event-action">+ INFO</a>
+      </div>
+    </div>
+
+    <div class="events-category">
+      <div class="events-category-title" data-pt="&#127968; Eventos Locais — Xira Tech Hub" data-en="&#127968; Local Events — Xira Tech Hub">&#127968; Eventos Locais — Xira Tech Hub</div>
+      <div class="event-card">
+        <div class="event-logo" style="background: var(--blue);"><span style="color:var(--yellow);font-weight:800;font-size:0.6rem;">XIRA<br>TECH</span></div>
+        <div class="event-info">
+          <div class="event-date" data-pt="Todas as quintas, 09:00 - 18:00" data-en="Every Thursday, 09:00 - 18:00">Todas as quintas, 09:00 - 18:00</div>
+          <h4>Coworking Thursdays</h4>
+          <p data-pt="Coworking aberto e gratuito para qualquer pessoa. Traz o teu portatil, trabalha e conhece outros founders e profissionais tech." data-en="Free open coworking for everyone. Bring your laptop, work and meet other founders and tech professionals.">Coworking aberto e gratuito para qualquer pessoa. Traz o teu portatil, trabalha e conhece outros founders e profissionais tech.</p>
+        </div>
+        <a href="#" class="event-action">+ INFO</a>
+      </div>
+      <div class="event-card">
+        <div class="event-logo">Startup Grind</div>
+        <div class="event-info">
+          <div class="event-date" data-pt="Primeira quarta de cada mes, 18:30" data-en="First Wednesday of each month, 18:30">Primeira quarta de cada mes, 18:30</div>
+          <h4>Startup Grind VFX</h4>
+          <p data-pt="Conversa mensal com um founder convidado. Networking, aprendizagem e inspiracao para quem esta a construir algo." data-en="Monthly fireside chat with a guest founder. Networking, learning and inspiration for builders.">Conversa mensal com um founder convidado. Networking, aprendizagem e inspiracao para quem esta a construir algo.</p>
+        </div>
+        <a href="#" class="event-action">+ INFO</a>
+      </div>
+      <div class="event-card">
+        <div class="event-logo">Creative Mornings</div>
+        <div class="event-info">
+          <div class="event-date" data-pt="Ultimo sabado de cada mes, 09:00" data-en="Last Saturday of each month, 09:00">Ultimo sabado de cada mes, 09:00</div>
+          <h4>CreativeMornings VFX</h4>
+          <p data-pt="Palestra matinal gratuita com oradores locais. Pequeno-almoco, comunidade e ideias para comecar o dia." data-en="Free morning talk with local speakers. Breakfast, community and ideas to start your day.">Palestra matinal gratuita com oradores locais. Pequeno-almoco, comunidade e ideias para comecar o dia.</p>
+        </div>
+        <a href="#" class="event-action">+ INFO</a>
+      </div>
+      <div class="event-card">
+        <div class="event-logo" style="background: var(--blue);"><span style="color:var(--yellow);font-weight:800;font-size:0.6rem;">XIRA<br>TECH</span></div>
+        <div class="event-info">
+          <div class="event-date" data-pt="Quinzenal, quartas 14:00 - 16:00" data-en="Bi-weekly, Wednesdays 14:00 - 16:00">Quinzenal, quartas 14:00 - 16:00</div>
+          <h4 data-pt="Office Hours com Mentores" data-en="Office Hours with Mentors">Office Hours com Mentores</h4>
+          <p data-pt="Sessoes abertas com mentores especializados. Traz as tuas duvidas sobre produto, growth, fundraising ou juridico." data-en="Open sessions with specialised mentors. Bring your questions about product, growth, fundraising or legal.">Sessoes abertas com mentores especializados. Traz as tuas duvidas sobre produto, growth, fundraising ou juridico.</p>
+        </div>
+        <a href="#" class="event-action">+ INFO</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PERKS ── -->
+<section class="perks-section" id="perks">
+  <div class="perks-inner">
+    <div class="perks-hero">
+      <div class="section-title" style="color:var(--white)">Startup Perks</div>
+      <div class="perks-value">+1.000.000&euro;</div>
+      <div class="perks-value-label" data-pt="em beneficios para empreendedores do Xira Tech" data-en="in benefits for Xira Tech entrepreneurs">em beneficios para empreendedores do Xira Tech</div>
+      <div class="section-subtitle" style="color:rgba(255,255,255,0.7);margin:1rem auto 0" data-pt="Para aceder aos perks gratuitos, basta fazeres parte da comunidade Xira Tech e estares registado na plataforma." data-en="To access the free perks, you just need to be part of the Xira Tech community and be registered on the platform.">Para aceder aos perks gratuitos, basta fazeres parte da comunidade Xira Tech e estares registado na plataforma.</div>
+    </div>
+
+    <!-- CLOUD -->
+    <div class="perks-category">
+      <div class="perks-category-title">&#9729;&#65039; Cloud</div>
+      <div class="perks-grid">
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">AWS</div><div class="perk-value" data-pt="Ate 100k em creditos AWS por 2 anos" data-en="Up to 100k in AWS credits for 2 years">Ate 100k em creditos AWS por 2 anos</div></div>
+          <p data-pt="Constroi ou escala com AWS. Usa os creditos para computacao, armazenamento, AI/ML ou suporte tecnico." data-en="Build or scale with AWS. Use credits for compute, storage, AI/ML or technical support.">Constroi ou escala com AWS. Usa os creditos para computacao, armazenamento, AI/ML ou suporte tecnico.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">Google Cloud</div><div class="perk-value" data-pt="Creditos Google Cloud para startups" data-en="Google Cloud credits for startups">Creditos Google Cloud para startups</div></div>
+          <p data-pt="Google Cloud para escalar aplicacoes web. Verifica a tua elegibilidade e comeca a construir hoje." data-en="Google Cloud to scale web apps. Check your eligibility and start building today.">Google Cloud para escalar aplicacoes web. Verifica a tua elegibilidade e comeca a construir hoje.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">Azure</div><div class="perk-value" data-pt="Ate 120k em creditos Azure por 2 anos" data-en="Up to 120k in Azure credits for 2 years">Ate 120k em creditos Azure por 2 anos</div></div>
+          <p data-pt="Constroi a tua solucao em Azure. Inclui suporte tecnico ilimitado e acesso gratuito a Office 365 e Teams." data-en="Build your solution on Azure. Includes unlimited technical support and free access to Office 365 and Teams.">Constroi a tua solucao em Azure. Inclui suporte tecnico ilimitado e acesso gratuito a Office 365 e Teams.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">OVHcloud</div><div class="perk-value" data-pt="Ate 100k em produtos OVH Cloud" data-en="Up to 100k in OVH Cloud products">Ate 100k em produtos OVH Cloud</div></div>
+          <p data-pt="Ate 100k em produtos OVHcloud mais ate 20 horas de suporte tecnico especializado." data-en="Up to 100k in OVHcloud products plus up to 20 hours of specialised technical support.">Ate 100k em produtos OVHcloud mais ate 20 horas de suporte tecnico especializado.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARKETING & CRM -->
+    <div class="perks-category">
+      <div class="perks-category-title">&#128200; Marketing & CRM</div>
+      <div class="perks-grid">
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">Airtable</div><div class="perk-value">$2,000 em creditos</div></div>
+          <p data-pt="Traz as tuas ideias a vida e colabora em tempo real. Cria e integra praticamente tudo o que quiseres." data-en="Bring your ideas to life and collaborate in real time. Create and integrate pretty much anything.">Traz as tuas ideias a vida e colabora em tempo real. Cria e integra praticamente tudo o que quiseres.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">HubSpot</div><div class="perk-value" data-pt="Ate 90% no 1o ano" data-en="Up to 90% off 1st year">Ate 90% no 1o ano</div></div>
+          <p data-pt="O CRM lider para configurar toda a tua estrutura de marketing e vendas." data-en="The leading CRM to set up all your marketing and sales structure.">O CRM lider para configurar toda a tua estrutura de marketing e vendas.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">Notion</div><div class="perk-value">$1,000 em creditos</div></div>
+          <p data-pt="A ferramenta completa para a tua equipa: wiki, notas, projetos e muito mais." data-en="The all-in-one tool for your team: wiki, notes, projects and more.">A ferramenta completa para a tua equipa: wiki, notas, projetos e muito mais.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">Segment</div><div class="perk-value">$50,000 em creditos</div></div>
+          <p data-pt="Recolhe e unifica dados de utilizadores de todas as fontes para as melhores decisoes." data-en="Collect and unify user data from all sources for the best decisions.">Recolhe e unifica dados de utilizadores de todas as fontes para as melhores decisoes.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">Freshworks</div><div class="perk-value" data-pt="$10,000 em creditos + mentoria" data-en="$10,000 in credits + mentoring">$10,000 em creditos + mentoria</div></div>
+          <p data-pt="Suite completa de software para suporte, vendas e engagement com clientes." data-en="Complete software suite for support, sales and customer engagement.">Suite completa de software para suporte, vendas e engagement com clientes.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">SendGrid</div><div class="perk-value">$1,000 em creditos</div></div>
+          <p data-pt="Envia emails transacionais e cria campanhas de email marketing automatizadas." data-en="Send transactional emails and create automated email marketing campaigns.">Envia emails transacionais e cria campanhas de email marketing automatizadas.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENTS -->
+    <div class="perks-category">
+      <div class="perks-category-title" data-pt="&#128179; Pagamentos" data-en="&#128179; Payments">&#128179; Pagamentos</div>
+      <div class="perks-grid">
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">Stripe</div><div class="perk-value" data-pt="Primeiros 20.000 sem taxas" data-en="First 20,000 fee-free">Primeiros 20.000 sem taxas</div></div>
+          <p data-pt="Sem taxas nos primeiros 20.000 em transacoes com cartao." data-en="Fee-free for the first 20,000 in card transactions.">Sem taxas nos primeiros 20.000 em transacoes com cartao.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">Wise</div><div class="perk-value" data-pt="Envia ate 10.000 sem taxas" data-en="Send up to 10,000 fee-free">Envia ate 10.000 sem taxas</div></div>
+          <p data-pt="A tua primeira transferencia internacional sem taxas ate 10.000." data-en="Your first international transfer fee-free up to 10,000.">A tua primeira transferencia internacional sem taxas ate 10.000.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">MangoPay</div><div class="perk-value" data-pt="Primeiros 50.000 sem taxas" data-en="First 50,000 fee-free">Primeiros 50.000 sem taxas</div></div>
+          <p data-pt="Sem taxas nas primeiras 50.000 em transacoes." data-en="Fee-free for the first 50,000 in transactions.">Sem taxas nas primeiras 50.000 em transacoes.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOLS -->
+    <div class="perks-category">
+      <div class="perks-category-title" data-pt="&#128736;&#65039; Ferramentas" data-en="&#128736;&#65039; Tools">&#128736;&#65039; Ferramentas</div>
+      <div class="perks-grid">
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">GitHub</div><div class="perk-value" data-pt="GitHub Enterprise gratis ate 2 anos" data-en="Free GitHub Enterprise for up to 2 years">GitHub Enterprise gratis ate 2 anos</div></div>
+          <p data-pt="Funcionalidades premium do GitHub Enterprise para ate 45 utilizadores." data-en="Premium GitHub Enterprise features for up to 45 users.">Funcionalidades premium do GitHub Enterprise para ate 45 utilizadores.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">Typeform</div><div class="perk-value" data-pt="30% desconto na subscricao" data-en="30% off subscription">30% desconto na subscricao</div></div>
+          <p data-pt="Cria formularios que as pessoas gostam de responder." data-en="Create forms that people enjoy answering.">Cria formularios que as pessoas gostam de responder.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">Twilio</div><div class="perk-value" data-pt="$500 em creditos por 12 meses" data-en="$500 in credits for 12 months">$500 em creditos por 12 meses</div></div>
+          <p data-pt="Comunica com clientes em todo o lado: SMS, emails, chamadas e video." data-en="Communicate with customers everywhere: SMS, emails, calls and video.">Comunica com clientes em todo o lado: SMS, emails, chamadas e video.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Candidatar" data-en="Apply Now">Candidatar</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIFESTYLE -->
+    <div class="perks-category">
+      <div class="perks-category-title">&#127947;&#65039; Lifestyle</div>
+      <div class="perks-grid">
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">Europcar</div><div class="perk-value" data-pt="Ate 20% desconto" data-en="Up to 20% off">Ate 20% desconto</div></div>
+          <p data-pt="20% em Portugal e 10% em toda a Europa." data-en="20% off in Portugal and 10% across Europe.">20% em Portugal e 10% em toda a Europa.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Reservar" data-en="Book Now">Reservar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo" style="font-weight:800;font-size:0.75rem;color:var(--blue);">Fitness Hut</div><div class="perk-value" data-pt="Precos especiais" data-en="Special prices">Precos especiais</div></div>
+          <p data-pt="Precos especiais numa das maiores cadeias de ginasios em Portugal." data-en="Special prices at one of Portugal's biggest gym chains.">Precos especiais numa das maiores cadeias de ginasios em Portugal.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Reservar" data-en="Book Now">Reservar</a></div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-header"><div class="perk-logo">Selina</div><div class="perk-value" data-pt="10% desconto" data-en="10% off">10% desconto</div></div>
+          <p data-pt="Desconto em qualquer localizacao Selina em Portugal." data-en="Discount at any Selina location in Portugal.">Desconto em qualquer localizacao Selina em Portugal.</p>
+          <div class="perk-actions"><a href="#" class="perk-link" data-pt="Saber mais" data-en="Learn more">Saber mais</a><a href="#" class="perk-apply" data-pt="Reservar" data-en="Book Now">Reservar</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW TO CLAIM ── -->
+<section class="claim-section">
+  <div class="claim-inner">
+    <h2 data-pt="Como Aceder aos Perks" data-en="How to Claim Perks">Como Aceder aos Perks</h2>
+    <p data-pt="Para acederes aos perks gratuitos, basta fazeres parte da comunidade Xira Tech. Junta-te ao nosso Slack, regista-te na plataforma e comeca a usar as ferramentas que vao acelerar o teu negocio." data-en="To access the free perks, just be part of the Xira Tech community. Join our Slack, register on the platform and start using the tools that will accelerate your business.">Para acederes aos perks gratuitos, basta fazeres parte da comunidade Xira Tech. Junta-te ao nosso Slack, regista-te na plataforma e comeca a usar as ferramentas que vao acelerar o teu negocio.</p>
+    <a href="#connect" class="btn-primary" style="font-size:0.95rem" data-pt="Junta-te Agora" data-en="Join Now">Junta-te Agora</a>
+    <p style="font-size:0.8rem;margin-top:1.5rem;color:rgba(255,255,255,0.5)" data-pt="Gostarias de oferecer um perk? <a href='#' style='color:var(--yellow);text-decoration:underline;'>Fala connosco!</a>" data-en="Want to offer a perk? <a href='#' style='color:var(--yellow);text-decoration:underline;'>Talk to us!</a>">Gostarias de oferecer um perk? <a href="#" style="color:var(--yellow);text-decoration:underline;">Fala connosco!</a></p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Xira<span>Tech</span></div>
+    <p class="footer-desc" data-pt="O hub de inovacao de Vila Franca de Xira. O ponto de partida para quem quer empreender no concelho." data-en="Vila Franca de Xira's innovation hub. The starting point for entrepreneurs in the municipality.">O hub de inovacao de Vila Franca de Xira. O ponto de partida para quem quer empreender no concelho.</p>
+    <div class="footer-links">
+      <a href="#about" data-pt="Sobre" data-en="About">Sobre</a>
+      <a href="#connect" data-pt="Comunidade" data-en="Community">Comunidade</a>
+      <a href="#events" data-pt="Eventos" data-en="Events">Eventos</a>
+      <a href="#perks">Perks</a>
+      <a href="#" data-pt="Contactos" data-en="Contact">Contactos</a>
+    </div>
+    <div class="footer-351" data-pt="Em parceria com a <strong style='margin-left:0.3rem'>351 Startups</strong> &mdash; Associacao Portuguesa de Startups" data-en="In partnership with <strong style='margin-left:0.3rem'>351 Startups</strong> &mdash; Portuguese Startup Association">Em parceria com a <strong style="margin-left:0.3rem">351 Startups</strong> &mdash; Associacao Portuguesa de Startups</div>
+    <p class="footer-copy" data-pt="&copy; 2026 Xira Tech &bull; Vila Franca de Xira &bull; Uma iniciativa da Invest Vila Franca de Xira em parceria com a 351 Startups" data-en="&copy; 2026 Xira Tech &bull; Vila Franca de Xira &bull; An initiative by Invest Vila Franca de Xira in partnership with 351 Startups">&copy; 2026 Xira Tech &bull; Vila Franca de Xira &bull; Uma iniciativa da Invest Vila Franca de Xira em parceria com a 351 Startups</p>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Language toggle
+let currentLang = 'pt';
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === lang.toUpperCase()));
+  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (val) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.value = val;
+      else el.innerHTML = val;
+    }
+  });
+  document.documentElement.lang = lang;
+}
+
+</script>
+
+</body>
+</html>
