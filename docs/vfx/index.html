@@ -305,6 +305,75 @@
     }
     .claim-section p { color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; }
 
+    /* ── PARTNERS ── */
+    .partners-section {
+      padding: 5rem 2rem; background: var(--dark);
+      position: relative; overflow: hidden;
+    }
+    .partners-section::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(0,85,184,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 50%, rgba(255,200,46,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .partners-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+    .partners-header { text-align: center; margin-bottom: 3.5rem; }
+    .partners-header .section-title { color: var(--white); font-size: 2rem; }
+    .partners-header .section-subtitle { color: var(--text-muted); margin: 0 auto; }
+    .partners-row {
+      margin-bottom: 3.5rem;
+    }
+    .partners-row-header {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;
+    }
+    .partners-row-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .partners-row-icon.corporate { background: rgba(0,85,184,0.15); }
+    .partners-row-icon.investors { background: rgba(255,200,46,0.15); }
+    .partners-row-label h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 0.15rem;
+    }
+    .partners-row-label p {
+      font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;
+    }
+    .partners-logo-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+    .partner-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 1.5rem 1rem;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 90px;
+      transition: all 0.3s ease;
+    }
+    .partner-card:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .partner-card img {
+      max-width: 120px; max-height: 55px; object-fit: contain;
+      filter: brightness(0) invert(1); opacity: 0.6;
+      transition: all 0.3s ease;
+    }
+    .partner-card:hover img {
+      filter: none; opacity: 1;
+    }
+    @media (max-width: 900px) {
+      .partners-logo-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .partners-logo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--dark); padding: 3rem 2rem;
@@ -764,6 +833,59 @@
     <p data-pt="Para acederes aos perks gratuitos, basta fazeres parte da comunidade Xira Tech. Junta-te ao nosso Slack, regista-te na plataforma e comeca a usar as ferramentas que vao acelerar o teu negocio." data-en="To access the free perks, just be part of the Xira Tech community. Join our Slack, register on the platform and start using the tools that will accelerate your business.">Para acederes aos perks gratuitos, basta fazeres parte da comunidade Xira Tech. Junta-te ao nosso Slack, regista-te na plataforma e comeca a usar as ferramentas que vao acelerar o teu negocio.</p>
     <a href="#connect" class="btn-primary" style="font-size:0.95rem" data-pt="Junta-te Agora" data-en="Join Now">Junta-te Agora</a>
     <p style="font-size:0.8rem;margin-top:1.5rem;color:rgba(255,255,255,0.5)" data-pt="Gostarias de oferecer um perk? <a href='#' style='color:var(--yellow);text-decoration:underline;'>Fala connosco!</a>" data-en="Want to offer a perk? <a href='#' style='color:var(--yellow);text-decoration:underline;'>Talk to us!</a>">Gostarias de oferecer um perk? <a href="#" style="color:var(--yellow);text-decoration:underline;">Fala connosco!</a></p>
+  </div>
+</section>
+
+<!-- ── PARTNERS ── -->
+<section class="partners-section" id="partners">
+  <div class="partners-inner">
+    <div class="partners-header">
+      <div class="section-title" data-pt="Quem Apoia o Xira Tech" data-en="Who Backs Xira Tech">Quem Apoia o Xira Tech</div>
+      <div class="section-subtitle" data-pt="Corporates e investidores que acreditam no ecossistema e estao prontos para trabalhar com as startups da regiao." data-en="Corporates and investors who believe in the ecosystem and are ready to work with the region's startups.">Corporates e investidores que acreditam no ecossistema e estao prontos para trabalhar com as startups da regiao.</div>
+    </div>
+
+    <!-- Corporate Partners -->
+    <div class="partners-row">
+      <div class="partners-row-header">
+        <div class="partners-row-icon corporate">&#127970;</div>
+        <div class="partners-row-label">
+          <h3 data-pt="Parceiros Corporativos" data-en="Corporate Partners">Parceiros Corporativos</h3>
+          <p data-pt="Corporacoes com programas de inovacao aberta, matchmaking e oportunidades de piloto para startups." data-en="Corporations with open innovation programmes, matchmaking and pilot opportunities for startups.">Corporacoes com programas de inovacao aberta, matchmaking e oportunidades de piloto para startups.</p>
+        </div>
+      </div>
+      <div class="partners-logo-grid">
+        <div class="partner-card"><img src="logos/1altice-300x277.png" alt="Altice"></div>
+        <div class="partner-card"><img src="logos/2bpi-300x277.png" alt="BPI"></div>
+        <div class="partner-card"><img src="logos/3brisa-300x277.png" alt="Grupo Brisa"></div>
+        <div class="partner-card"><img src="logos/4ctt-300x277.png" alt="CTT"></div>
+        <div class="partner-card"><img src="logos/5edp-300x277.png" alt="EDP"></div>
+        <div class="partner-card"><img src="logos/6fidelidade-300x277.png" alt="Fidelidade"></div>
+        <div class="partner-card"><img src="logos/7galp-300x277.png" alt="Galp"></div>
+        <div class="partner-card"><img src="logos/8santander-300x277.png" alt="Santander"></div>
+        <div class="partner-card"><img src="logos/9sibs-300x277.png" alt="SIBS"></div>
+        <div class="partner-card"><img src="logos/10sonae-300x277.png" alt="Sonae"></div>
+      </div>
+    </div>
+
+    <!-- Investor Partners -->
+    <div class="partners-row">
+      <div class="partners-row-header">
+        <div class="partners-row-icon investors">&#128176;</div>
+        <div class="partners-row-label">
+          <h3 data-pt="Investidores Parceiros" data-en="Partnering Investors">Investidores Parceiros</h3>
+          <p data-pt="VCs e business angels com quem as startups do Xira Tech terao sessoes de matchmaking e pitch exclusivas." data-en="VCs and business angels with whom Xira Tech startups will have exclusive matchmaking and pitch sessions.">VCs e business angels com quem as startups do Xira Tech terao sessoes de matchmaking e pitch exclusivas.</p>
+        </div>
+      </div>
+      <div class="partners-logo-grid">
+        <div class="partner-card"><img src="logos/1armilar.png" alt="Armilar"></div>
+        <div class="partner-card"><img src="logos/2bynd.png" alt="Bynd Venture Capital"></div>
+        <div class="partner-card"><img src="logos/3core-angels-300x277.png" alt="Core Angels"></div>
+        <div class="partner-card"><img src="logos/4faber-300x277.png" alt="Faber"></div>
+        <div class="partner-card"><img src="logos/5Indico-300x277.png" alt="Indico Capital Partners"></div>
+        <div class="partner-card"><img src="logos/6olisipo-300x277.png" alt="Olisipo Way"></div>
+        <div class="partner-card"><img src="logos/7shillinh-300x277.png" alt="Shilling"></div>
+      </div>
+    </div>
   </div>
 </section>
 
